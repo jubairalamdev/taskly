@@ -37,9 +37,9 @@
 
 ## Phase 4: Dashboard — Empty State
 
-- [ ] **4.1** Dashboard layout shell with header (logout action calls `auth.signOut()`)
-- [ ] **4.2** Empty state UI — placeholder graphic + "Your slate is clean" prompt
-- [ ] **4.3** Floating/centered "+" icon button to trigger Add Task modal
+- [X] **4.1** Dashboard layout shell with header (logout action calls `auth.signOut()`)
+- [X] **4.2** Empty state UI — placeholder graphic + "Your slate is clean" prompt
+- [X] **4.3** Floating/centered "+" icon button to trigger Add Task modal
 
 ## Phase 5: Task Modal (Create & Edit)
 

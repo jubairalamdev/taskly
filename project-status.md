@@ -40,9 +40,9 @@
 ## Phase 4: Dashboard — Empty State
 | Task | Status |
 |------|--------|
-| 4.1 Dashboard layout shell | `[ ]` |
-| 4.2 Empty state UI | `[ ]` |
-| 4.3 "+" button → Add Task modal | `[ ]` |
+| 4.1 Dashboard layout shell | `[X]` |
+| 4.2 Empty state UI | `[X]` |
+| 4.3 "+" button → Add Task modal | `[X]` |
 
 ## Phase 5: Task Modal (Create & Edit)
 | Task | Status |
@@ -78,4 +78,4 @@
 
 ---
 
-**Overall: 19 / 38 tasks completed**
+**Overall: 22 / 38 tasks completed**
