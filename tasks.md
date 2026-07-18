@@ -76,7 +76,7 @@
 
 ## Phase 9: Polish & Deployment Prep
 
-- [ ] **9.1** Responsive design pass (mobile-first)
-- [ ] **9.2** Loading states (skeleton/spinner during data fetch)
-- [ ] **9.3** Final error boundary and 404 page
-- [ ] **9.4** Build and verify production build
+- [X] **9.1** Responsive design pass (mobile-first)
+- [X] **9.2** Loading states (skeleton/spinner during data fetch)
+- [X] **9.3** Final error boundary and 404 page
+- [X] **9.4** Build and verify production build
