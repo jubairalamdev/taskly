@@ -15,13 +15,13 @@
 ## Phase 2: Authentication (Better Auth — server on frontend origin)
 | Task | Status |
 |------|--------|
-| 2.1 Create server auth instance (`src/lib/auth.js`) | `[ ]` |
-| 2.2 Set up env vars (`.env.local`) | `[ ]` |
-| 2.3 Create API route handler (`src/app/api/auth/[...all]/route.js`) | `[ ]` |
-| 2.4 Rework client (`src/lib/auth-client.js`) | `[ ]` |
-| 2.5 Sign-in page with proper callback pattern | `[ ]` |
-| 2.6 Sign-up page with proper callback pattern | `[ ]` |
-| 2.7 Update proxy with `getSessionCookie` | `[ ]` |
+| 2.1 Create server auth instance (`src/lib/auth.js`) | `[X]` |
+| 2.2 Set up env vars (`.env.local`) | `[X]` |
+| 2.3 Create API route handler (`src/app/api/auth/[...all]/route.js`) | `[X]` |
+| 2.4 Rework client (`src/lib/auth-client.js`) | `[X]` |
+| 2.5 Sign-in page with proper callback pattern | `[X]` |
+| 2.6 Sign-up page with proper callback pattern | `[X]` |
+| 2.7 Update proxy with `getSessionCookie` | `[X]` |
 
 ## Phase 3: Marketing Page
 | Task | Status |
@@ -72,4 +72,4 @@
 
 ---
 
-**Overall: 4 / 29 tasks completed**
+**Overall: 11 / 29 tasks completed**
