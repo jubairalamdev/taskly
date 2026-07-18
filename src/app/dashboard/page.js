@@ -2,26 +2,34 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { Button } from "@heroui/react";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 import TaskModal from "@/components/TaskModal";
 import TaskRow from "@/components/TaskRow";
 
 export default function DashboardPage() {
+  const router = useRouter();
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
   const [editingTask, setEditingTask] = useState(null);
+  const [togglingIds, setTogglingIds] = useState(new Set());
 
   const fetchTasks = useCallback(async () => {
     try {
       const res = await fetch("/api/tasks");
+      if (res.status === 401) {
+        router.push("/auth/signin");
+        return;
+      }
       if (!res.ok) throw new Error("Failed to fetch");
       setTasks(await res.json());
     } catch {
-      console.error("Failed to load tasks");
+      toast.error("Failed to load tasks");
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [router]);
 
   useEffect(() => { fetchTasks(); }, [fetchTasks]);
 
@@ -35,47 +43,62 @@ export default function DashboardPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
+      if (res.status === 401) { router.push("/auth/signin"); return; }
       if (!res.ok) throw new Error("Failed to save");
 
       const saved = await res.json();
       if (id) {
         setTasks((prev) => prev.map((t) => (t._id === id ? saved : t)));
+        toast.success("Task updated");
       } else {
         setTasks((prev) => [...prev, saved]);
+        toast.success("Task created");
       }
-      setModalOpen(false);
-      setEditingTask(null);
     } catch {
-      console.error("Failed to save task");
+      toast.error("Failed to save task");
     }
   };
 
   const handleToggle = async (task) => {
+    const original = tasks;
+    setTogglingIds((prev) => new Set(prev).add(task._id));
+    setTasks((prev) =>
+      prev.map((t) => (t._id === task._id ? { ...t, isCompleted: !t.isCompleted } : t))
+    );
+
     try {
       const res = await fetch(`/api/tasks/${task._id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ isCompleted: !task.isCompleted }),
       });
+      if (res.status === 401) { router.push("/auth/signin"); return; }
       if (!res.ok) throw new Error("Failed to toggle");
 
-      const updated = await res.json();
-      setTasks((prev) => prev.map((t) => (t._id === task._id ? updated : t)));
+      toast.success(task.isCompleted ? "Task uncompleted" : "Task completed");
     } catch {
-      console.error("Failed to toggle task");
+      setTasks(original);
+      toast.error("Failed to update task");
+    } finally {
+      setTogglingIds((prev) => { const next = new Set(prev); next.delete(task._id); return next; });
     }
   };
 
-  const handleDelete = async (task) => {
+  const handleDelete = (task) => {
     if (!confirm("Delete this task?")) return;
 
-    try {
-      const res = await fetch(`/api/tasks/${task._id}`, { method: "DELETE" });
-      if (!res.ok) throw new Error("Failed to delete");
-      setTasks((prev) => prev.filter((t) => t._id !== task._id));
-    } catch {
-      console.error("Failed to delete task");
-    }
+    setTasks((prev) => prev.filter((t) => t._id !== task._id));
+
+    fetch(`/api/tasks/${task._id}`, { method: "DELETE" })
+      .then((res) => {
+        if (res.status === 401) { router.push("/auth/signin"); return; }
+        if (!res.ok) throw new Error("Failed to delete");
+        toast.success("Task deleted");
+      })
+      .catch(() => {
+        setTasks((prev) => [...prev, task]);
+        toast.error("Failed to delete task");
+      });
   };
 
   const openCreate = () => { setEditingTask(null); setModalOpen(true); };
@@ -119,6 +142,7 @@ export default function DashboardPage() {
             onToggle={handleToggle}
             onEdit={openEdit}
             onDelete={handleDelete}
+            toggling={togglingIds.has(task._id)}
           />
         ))}
       </div>

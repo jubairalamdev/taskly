@@ -64,9 +64,9 @@
 ## Phase 7: UX & Optimistic Updates
 | Task | Status |
 |------|--------|
-| 7.1 Optimistic UI for checkbox | `[ ]` |
-| 7.2 Toast notifications | `[ ]` |
-| 7.3 Edge case handling (expired session, network error) | `[ ]` |
+| 7.1 Optimistic UI for checkbox | `[X]` |
+| 7.2 Toast notifications | `[X]` |
+| 7.3 Edge case handling (expired session, network error) | `[X]` |
 
 ## Phase 8: Polish & Deployment
 | Task | Status |
@@ -78,4 +78,4 @@
 
 ---
 
-**Overall: 31 / 38 tasks completed**
+**Overall: 34 / 38 tasks completed**

@@ -61,9 +61,9 @@
 
 ## Phase 7: UX & Optimistic Updates
 
-- [ ] **7.1** Implement optimistic UI for completion checkbox toggle (instant visual rollback on failure)
-- [ ] **7.2** Wire React Toastify toasts on every mutation success/failure
-- [ ] **7.3** Handle edge cases: expired session → redirect to sign-in, network error → rollback + toast
+- [X] **7.1** Implement optimistic UI for completion checkbox toggle (instant visual rollback on failure)
+- [X] **7.2** Wire React Toastify toasts on every mutation success/failure
+- [X] **7.3** Handle edge cases: expired session → redirect to sign-in, network error → rollback + toast
 
 ## Phase 8: Polish & Deployment Prep
 
