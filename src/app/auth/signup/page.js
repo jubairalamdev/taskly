@@ -1,9 +1,11 @@
 "use client";
 
-import { Card, Input, Button } from "@heroui/react";
+import { Card, Button, TextField, Label, Input, FieldError } from "@heroui/react";
 import { toast } from "react-toastify";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { motion } from "framer-motion";
 
 export default function SignUpPage() {
   const router = useRouter();
@@ -36,33 +38,55 @@ export default function SignUpPage() {
   };
 
   return (
-    <div className="flex flex-1 items-center justify-center p-4">
-      <Card className="w-full max-w-sm p-6">
-        <h1 className="text-2xl font-bold mb-6 text-center">Sign Up</h1>
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          <Input
-            name="name"
-            label="Name"
-            type="text"
-            isRequired
-          />
-          <Input
-            name="email"
-            label="Email"
-            type="email"
-            isRequired
-          />
-          <Input
-            name="password"
-            label="Password"
-            type="password"
-            isRequired
-          />
-          <Button type="submit" color="primary">
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      className="w-full max-w-sm h-[85vh] flex items-center justify-center"
+    >
+      <Card className="w-full p-8 shadow-xl border border-slate-100 rounded-2xl">
+        <div className="text-center mb-8">
+          <h1 className="text-2xl font-bold text-slate-900">Create an account</h1>
+          <p className="mt-2 text-sm text-slate-500">
+            Start managing your tasks in seconds
+          </p>
+        </div>
+
+        <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+          <TextField isRequired className="flex flex-col gap-1.5">
+            <Label className="text-sm font-medium text-slate-700">Name</Label>
+            <Input name="name" type="text" placeholder="Your name" className="px-3 py-2 rounded-xl border border-slate-200 focus:border-blue-400 transition-colors" />
+            <FieldError />
+          </TextField>
+          <TextField isRequired className="flex flex-col gap-1.5">
+            <Label className="text-sm font-medium text-slate-700">Email</Label>
+            <Input name="email" type="email" placeholder="you@example.com" className="px-3 py-2 rounded-xl border border-slate-200 focus:border-blue-400 transition-colors" />
+            <FieldError />
+          </TextField>
+          <TextField isRequired className="flex flex-col gap-1.5">
+            <Label className="text-sm font-medium text-slate-700">Password</Label>
+            <Input name="password" type="password" placeholder="Create a password" className="px-3 py-2 rounded-xl border border-slate-200 focus:border-blue-400 transition-colors" />
+            <FieldError />
+          </TextField>
+          <Button
+            type="submit"
+            color="primary"
+            className="w-full h-11 text-base font-medium rounded-xl bg-blue-400 hover:bg-blue-500 transition-all"
+          >
             Sign Up
           </Button>
         </form>
+
+        <p className="mt-6 text-center text-sm text-slate-500">
+          Already have an account?{" "}
+          <Link
+            href="/auth/signin"
+            className="text-blue-400 hover:text-blue-500 font-medium transition-colors"
+          >
+            Sign in
+          </Link>
+        </p>
       </Card>
-    </div>
+    </motion.div>
   );
 }

@@ -1,26 +1,31 @@
 "use client";
 
 import { Checkbox, Button } from "@heroui/react";
-import { useRouter } from "next/navigation";
 
 function getBadge(task) {
-  if (task.isCompleted) return { label: "Done", classes: "bg-green-100 text-green-700" };
+  if (task.isCompleted) return { label: "Done", classes: "bg-green-50 text-green-600 border-green-200" };
   const now = new Date();
   const deadline = new Date(task.deadline);
-  if (now <= deadline) return { label: "Active", classes: "bg-yellow-100 text-yellow-700" };
-  return { label: "Overdue", classes: "bg-red-100 text-red-700" };
+  if (now <= deadline) return { label: "Active", classes: "bg-yellow-50 text-yellow-600 border-yellow-200" };
+  return { label: "Overdue", classes: "bg-red-50 text-red-600 border-red-200" };
+}
+
+function getAccent(task) {
+  if (task.isCompleted) return "border-l-green-400";
+  const now = new Date();
+  const deadline = new Date(task.deadline);
+  if (now <= deadline) return "border-l-yellow-400";
+  return "border-l-red-400";
 }
 
 export default function TaskRow({ task, onToggle, onEdit, onDelete, toggling }) {
-  const router = useRouter();
   const badge = getBadge(task);
-  const isOverdue = !task.isCompleted && new Date(task.deadline) < new Date();
 
   return (
-    <div className={`flex items-center gap-4 px-4 py-3 rounded-xl transition-colors ${isOverdue ? "bg-red-50 border border-red-200" : "hover:bg-slate-50"}`}>
+    <div className={`flex items-center gap-4 px-4 py-3 bg-white rounded-2xl shadow-sm border border-slate-200 border-l-4 ${getAccent(task)} transition-shadow hover:shadow-md`}>
       <Checkbox
         isSelected={task.isCompleted}
-        onValueChange={() => onToggle(task)}
+        onChange={() => onToggle(task)}
         isDisabled={toggling}
       />
       <div className="flex-1 min-w-0">
@@ -34,7 +39,7 @@ export default function TaskRow({ task, onToggle, onEdit, onDelete, toggling }) 
           Due {new Date(task.deadline).toLocaleDateString()}
         </p>
       </div>
-      <span className={`shrink-0 text-xs font-medium px-2.5 py-1 rounded-full ${badge.classes}`}>
+      <span className={`shrink-0 text-xs font-medium px-2.5 py-1 rounded-full border ${badge.classes}`}>
         {badge.label}
       </span>
       <Button size="sm" variant="light" onPress={() => onEdit(task)} className="text-slate-500">

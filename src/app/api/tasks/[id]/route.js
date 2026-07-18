@@ -3,33 +3,43 @@ import { headers } from "next/headers";
 
 const BACKEND = process.env.API_URL || "http://localhost:5000";
 
-async function getSession() {
-  const h = await headers();
-  return { session: await auth.api.getSession({ headers: h }), cookie: h.get("cookie") || "" };
+async function fetchWithTimeout(url, options, timeout = 5000) {
+  const ctrl = new AbortController();
+  const id = setTimeout(() => ctrl.abort(), timeout);
+  try {
+    const res = await fetch(url, { ...options, signal: ctrl.signal });
+    return res;
+  } finally {
+    clearTimeout(id);
+  }
 }
 
 export async function PUT(request, { params }) {
-  const { session, cookie } = await getSession();
-  if (!session) return Response.json({ error: "Unauthorized" }, { status: 401 });
+  const h = await headers();
+  const sessionData = await auth.api.getSession({ headers: h });
+  if (!sessionData) return Response.json({ error: "Unauthorized" }, { status: 401 });
 
+  const token = sessionData.session.token;
   const { id } = await params;
   const body = await request.json();
-  const res = await fetch(`${BACKEND}/api/tasks/${id}`, {
+  const res = await fetchWithTimeout(`${BACKEND}/api/tasks/${id}`, {
     method: "PUT",
-    headers: { "Content-Type": "application/json", cookie },
+    headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
     body: JSON.stringify(body),
   });
   return Response.json(await res.json(), { status: res.status });
 }
 
 export async function DELETE(request, { params }) {
-  const { session, cookie } = await getSession();
-  if (!session) return Response.json({ error: "Unauthorized" }, { status: 401 });
+  const h = await headers();
+  const sessionData = await auth.api.getSession({ headers: h });
+  if (!sessionData) return Response.json({ error: "Unauthorized" }, { status: 401 });
 
+  const token = sessionData.session.token;
   const { id } = await params;
-  const res = await fetch(`${BACKEND}/api/tasks/${id}`, {
+  const res = await fetchWithTimeout(`${BACKEND}/api/tasks/${id}`, {
     method: "DELETE",
-    headers: { cookie },
+    headers: { Authorization: `Bearer ${token}` },
   });
   return Response.json(await res.json(), { status: res.status });
 }

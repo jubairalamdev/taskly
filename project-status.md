@@ -1,6 +1,6 @@
 # Taskly — Frontend Project Status
 
-> Updated: 2026-07-18
+> Updated: 2026-07-19 (Modals split into create/edit/delete, task cards redesigned, React compiler null-safety fix)
 
 ---
 

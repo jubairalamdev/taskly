@@ -5,7 +5,7 @@ import { MongoClient } from "mongodb";
 
 function createAuth() {
   const client = new MongoClient(process.env.MONGODB_URI);
-  const db = client.db();
+  const db = client.db("taskly");
 
   return betterAuth({
     database: mongodbAdapter(db, { client }),

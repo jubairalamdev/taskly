@@ -1,61 +1,78 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Button } from "@heroui/react";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import TaskModal from "@/components/TaskModal";
+import EditTaskModal from "@/components/EditTaskModal";
+import DeleteTaskModal from "@/components/DeleteTaskModal";
 import TaskRow from "@/components/TaskRow";
 
 export default function DashboardPage() {
   const router = useRouter();
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [modalOpen, setModalOpen] = useState(false);
+  const [createOpen, setCreateOpen] = useState(false);
   const [editingTask, setEditingTask] = useState(null);
+  const [deletingTask, setDeletingTask] = useState(null);
   const [togglingIds, setTogglingIds] = useState(new Set());
+  const fetchedRef = useRef(false);
 
-  const fetchTasks = useCallback(async () => {
-    try {
-      const res = await fetch("/api/tasks");
-      if (res.status === 401) {
-        router.push("/auth/signin");
-        return;
+  useEffect(() => {
+    if (fetchedRef.current) return;
+    fetchedRef.current = true;
+
+    (async () => {
+      try {
+        const res = await fetch("/api/tasks");
+        if (res.status === 401) {
+          router.push("/auth/signin");
+          return;
+        }
+        if (!res.ok) throw new Error("Failed to fetch");
+        setTasks(await res.json());
+      } catch {
+        toast.error("Failed to load tasks");
+      } finally {
+        setLoading(false);
       }
-      if (!res.ok) throw new Error("Failed to fetch");
-      setTasks(await res.json());
-    } catch {
-      toast.error("Failed to load tasks");
-    } finally {
-      setLoading(false);
-    }
+    })();
   }, [router]);
 
-  useEffect(() => { fetchTasks(); }, [fetchTasks]);
-
-  const handleSave = async (data, id) => {
-    const url = id ? `/api/tasks/${id}` : "/api/tasks";
-    const method = id ? "PUT" : "POST";
-
+  const handleCreate = async (data) => {
     try {
-      const res = await fetch(url, {
-        method,
+      const res = await fetch("/api/tasks", {
+        method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
       if (res.status === 401) { router.push("/auth/signin"); return; }
-      if (!res.ok) throw new Error("Failed to save");
+      if (!res.ok) throw new Error("Failed to create");
 
       const saved = await res.json();
-      if (id) {
-        setTasks((prev) => prev.map((t) => (t._id === id ? saved : t)));
-        toast.success("Task updated");
-      } else {
-        setTasks((prev) => [...prev, saved]);
-        toast.success("Task created");
-      }
+      setTasks((prev) => [...prev, saved]);
+      toast.success("Task created");
     } catch {
-      toast.error("Failed to save task");
+      toast.error("Failed to create task");
+    }
+  };
+
+  const handleUpdate = async (data, id) => {
+    try {
+      const res = await fetch(`/api/tasks/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      if (res.status === 401) { router.push("/auth/signin"); return; }
+      if (!res.ok) throw new Error("Failed to update");
+
+      const saved = await res.json();
+      setTasks((prev) => prev.map((t) => (t._id === id ? saved : t)));
+      toast.success("Task updated");
+    } catch {
+      toast.error("Failed to update task");
     }
   };
 
@@ -84,25 +101,23 @@ export default function DashboardPage() {
     }
   };
 
-  const handleDelete = (task) => {
-    if (!confirm("Delete this task?")) return;
-
+  const handleDeleteConfirm = async (task) => {
     setTasks((prev) => prev.filter((t) => t._id !== task._id));
 
-    fetch(`/api/tasks/${task._id}`, { method: "DELETE" })
-      .then((res) => {
-        if (res.status === 401) { router.push("/auth/signin"); return; }
-        if (!res.ok) throw new Error("Failed to delete");
-        toast.success("Task deleted");
-      })
-      .catch(() => {
-        setTasks((prev) => [...prev, task]);
-        toast.error("Failed to delete task");
-      });
+    try {
+      const res = await fetch(`/api/tasks/${task._id}`, { method: "DELETE" });
+      if (res.status === 401) { router.push("/auth/signin"); return; }
+      if (!res.ok) throw new Error("Failed to delete");
+      toast.success("Task deleted");
+    } catch {
+      setTasks((prev) => [...prev, task]);
+      toast.error("Failed to delete task");
+    }
   };
 
-  const openCreate = () => { setEditingTask(null); setModalOpen(true); };
-  const openEdit = (task) => { setEditingTask(task); setModalOpen(true); };
+  const openCreate = () => setCreateOpen(true);
+  const openEdit = (task) => setEditingTask(task);
+  const openDelete = (task) => setDeletingTask(task);
 
   if (loading) {
     return (
@@ -124,10 +139,10 @@ export default function DashboardPage() {
         <p className="text-slate-500 mb-8 text-center max-w-sm">
           No tasks yet. Tap the button below to create your first one.
         </p>
-        <Button isIconOnly size="lg" color="primary" onPress={openCreate} aria-label="Add task" className="w-14 h-14 rounded-full text-2xl shadow-lg">
+        <Button isIconOnly size="lg" onPress={openCreate} aria-label="Add task" className="w-14 h-14 rounded-full text-2xl shadow-lg bg-gradient-to-r from-blue-400 to-blue-500 text-white hover:from-blue-500 hover:to-blue-600">
           +
         </Button>
-        <TaskModal isOpen={modalOpen} onClose={() => setModalOpen(false)} onSave={handleSave} />
+        <TaskModal isOpen={createOpen} onClose={() => setCreateOpen(false)} onSave={handleCreate} />
       </div>
     );
   }
@@ -141,7 +156,7 @@ export default function DashboardPage() {
             task={task}
             onToggle={handleToggle}
             onEdit={openEdit}
-            onDelete={handleDelete}
+            onDelete={openDelete}
             toggling={togglingIds.has(task._id)}
           />
         ))}
@@ -149,13 +164,27 @@ export default function DashboardPage() {
 
       <button
         onClick={openCreate}
-        className="fixed bottom-8 right-8 w-14 h-14 rounded-full bg-blue-400 text-white text-2xl shadow-lg hover:bg-blue-500 transition-colors flex items-center justify-center"
+        className="fixed bottom-8 right-8 w-14 h-14 rounded-full bg-gradient-to-r from-blue-400 to-blue-500 text-white text-2xl shadow-lg hover:from-blue-500 hover:to-blue-600 transition-all flex items-center justify-center"
         aria-label="Add task"
       >
         +
       </button>
 
-      <TaskModal isOpen={modalOpen} onClose={() => { setModalOpen(false); setEditingTask(null); }} task={editingTask} onSave={handleSave} />
+      <TaskModal isOpen={createOpen} onClose={() => setCreateOpen(false)} onSave={handleCreate} />
+
+      <EditTaskModal
+        isOpen={!!editingTask}
+        onClose={() => setEditingTask(null)}
+        task={editingTask}
+        onSave={handleUpdate}
+      />
+
+      <DeleteTaskModal
+        isOpen={!!deletingTask}
+        onClose={() => setDeletingTask(null)}
+        task={deletingTask}
+        onConfirm={handleDeleteConfirm}
+      />
     </div>
   );
 }

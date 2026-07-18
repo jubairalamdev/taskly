@@ -5,3 +5,51 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer utilities {
+  .bg-gradient-hero {
+    background: linear-gradient(
+      135deg,
+      #eff6ff 0%,
+      #ffffff 30%,
+      #f0f9ff 70%,
+      #eff6ff 100%
+    );
+  }
+
+  .bg-gradient-cta {
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+  }
+
+  .bg-gradient-auth {
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 50%, #f0f9ff 100%);
+  }
+
+  .text-gradient-primary {
+    background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 50%, #93c5fd 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-accent {
+    background: linear-gradient(135deg, #f97316 0%, #fb923c 50%, #fdba74 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .glow-blue {
+    box-shadow: 0 0 40px -12px rgba(96, 165, 250, 0.3);
+  }
+
+  .glow-orange {
+    box-shadow: 0 0 40px -12px rgba(251, 146, 60, 0.3);
+  }
+}
