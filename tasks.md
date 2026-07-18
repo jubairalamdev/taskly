@@ -11,13 +11,17 @@
 - [X] **1.3** Set up React Toastify and project folder structure (layouts, lib, components, app routes)
 - [X] **1.4** Create root layout with global providers (Hero UI, Toastify)
 
-## Phase 2: Authentication (Better Auth)
+## Phase 2: Authentication (Better Auth — server on frontend origin)
 
-- [X] **2.1** Install & configure Better Auth client SDK (`auth-client.js` with `createAuthClient`)
-- [X] **2.2** Build sign-in page (`/auth/signin`) with centered Hero UI card + email/password form
-- [X] **2.3** Wire form submission to `auth.signIn()` with toast feedback on success/failure
-- [X] **2.4** Create route middleware (Next.js Middleware) to guard `/dashboard` — check session cookie, redirect to `/auth/signin` if no session
-- [X] **2.5** Build sign-up / register page (`/auth/signup`) with centered Hero UI card + name/email/password form + wire to `auth.signUp()`
+> Better Auth runs on the Next.js server itself (not the Express backend). See [better-auth.com/docs](https://www.better-auth.com/docs/installation).
+
+- [ ] **2.1** Create server auth instance (`src/lib/auth.js`) — `betterAuth()` with `emailAndPassword`, database adapter, and `nextCookies()` plugin
+- [ ] **2.2** Set up environment variables (`.env.local`) — `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL=http://localhost:3000`
+- [ ] **2.3** Create API route handler (`src/app/api/auth/[...all]/route.js`) — mount auth via `toNextJsHandler()`
+- [ ] **2.4** Rework client (`src/lib/auth-client.js`) — `createAuthClient` from `better-auth/react`, no `baseURL` needed (same origin)
+- [ ] **2.5** Build sign-in page (`/auth/signin`) with Hero UI card + email/password form wired to `authClient.signIn.email()` with callback pattern (`onSuccess`, `onError`)
+- [ ] **2.6** Build sign-up page (`/auth/signup`) with Hero UI card + name/email/password form wired to `authClient.signUp.email()` with callback pattern
+- [ ] **2.7** Update proxy (`src/proxy.js`) — use `getSessionCookie` from `better-auth/cookies` for fast cookie check
 
 ## Phase 3: Marketing Page
 

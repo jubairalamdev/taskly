@@ -12,14 +12,16 @@
 | 1.3 Set up Toastify + folder structure | `[X]` |
 | 1.4 Root layout with global providers | `[X]` |
 
-## Phase 2: Authentication (Better Auth)
+## Phase 2: Authentication (Better Auth — server on frontend origin)
 | Task | Status |
 |------|--------|
-| 2.1 Better Auth client SDK setup (`auth-client.js`) | `[X]` |
-| 2.2 Sign-in page UI | `[X]` |
-| 2.3 Wire form to `auth.signIn()` + toast feedback | `[X]` |
-| 2.4 Route middleware — guard /dashboard with session check | `[X]` |
-| 2.5 Sign-up / register page (`/auth/signup`) with `auth.signUp()` | `[X]` |
+| 2.1 Create server auth instance (`src/lib/auth.js`) | `[ ]` |
+| 2.2 Set up env vars (`.env.local`) | `[ ]` |
+| 2.3 Create API route handler (`src/app/api/auth/[...all]/route.js`) | `[ ]` |
+| 2.4 Rework client (`src/lib/auth-client.js`) | `[ ]` |
+| 2.5 Sign-in page with proper callback pattern | `[ ]` |
+| 2.6 Sign-up page with proper callback pattern | `[ ]` |
+| 2.7 Update proxy with `getSessionCookie` | `[ ]` |
 
 ## Phase 3: Marketing Page
 | Task | Status |
@@ -70,4 +72,4 @@
 
 ---
 
-**Overall: 9 / 28 tasks completed**
+**Overall: 4 / 29 tasks completed**

@@ -1,34 +1,38 @@
 "use client";
 
-import { useState } from "react";
 import { Card, Input, Button } from "@heroui/react";
 import { toast } from "react-toastify";
-import { auth } from "@/lib/auth-client";
+import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 
 export default function SignUpPage() {
   const router = useRouter();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
-  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setLoading(true);
-    try {
-      const { error } = await auth.signUp.email({ email, password, name });
-      if (error) {
-        toast.error(error.message || "Sign up failed");
-      } else {
-        toast.success("Account created! You can now sign in.");
-        router.push("/auth/signin");
-      }
-    } catch {
-      toast.error("Something went wrong");
-    } finally {
-      setLoading(false);
-    }
+    const form = new FormData(e.target);
+
+    authClient.signUp.email(
+      {
+        name: form.get("name"),
+        email: form.get("email"),
+        password: form.get("password"),
+      },
+      {
+        onRequest: () => {
+          toast.loading("Creating account...");
+        },
+        onSuccess: () => {
+          toast.dismiss();
+          toast.success("Account created! Signed in.");
+          router.push("/dashboard");
+        },
+        onError: (ctx) => {
+          toast.dismiss();
+          toast.error(ctx.error.message || "Sign up failed");
+        },
+      },
+    );
   };
 
   return (
@@ -37,28 +41,25 @@ export default function SignUpPage() {
         <h1 className="text-2xl font-bold mb-6 text-center">Sign Up</h1>
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <Input
+            name="name"
             label="Name"
             type="text"
-            value={name}
-            onValueChange={setName}
             isRequired
           />
           <Input
+            name="email"
             label="Email"
             type="email"
-            value={email}
-            onValueChange={setEmail}
             isRequired
           />
           <Input
+            name="password"
             label="Password"
             type="password"
-            value={password}
-            onValueChange={setPassword}
             isRequired
           />
-          <Button type="submit" color="primary" isLoading={loading}>
-            {loading ? "Creating account..." : "Sign Up"}
+          <Button type="submit" color="primary">
+            Sign Up
           </Button>
         </form>
       </Card>
