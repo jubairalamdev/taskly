@@ -49,15 +49,15 @@
 
 ## Phase 6: Dashboard — Active Task Board
 
-- [ ] **6.1** Fetch and display task list from GET /api/tasks (session cookie sent automatically)
-- [ ] **6.2** Build task row component (name, description, deadline date)
-- [ ] **6.3** Implement color-coded badge logic:
+- [X] **6.1** Fetch and display task list from GET /api/tasks (session cookie sent automatically)
+- [X] **6.2** Build task row component (name, description, deadline date)
+- [X] **6.3** Implement color-coded badge logic:
   - 🟢 Green = `isCompleted === true`
   - 🟡 Yellow = `!isCompleted && now <= deadline`
   - 🔴 Red = `!isCompleted && now > deadline` (red border/text on row)
-- [ ] **6.4** Completion checkbox — toggle `isCompleted` with PUT call
-- [ ] **6.5** Edit button per row → opens modal (Phase 5)
-- [ ] **6.6** Delete task action with confirmation (DELETE /api/tasks/:id)
+- [X] **6.4** Completion checkbox — toggle `isCompleted` with PUT call
+- [X] **6.5** Edit button per row → opens modal (Phase 5)
+- [X] **6.6** Delete task action with confirmation (DELETE /api/tasks/:id)
 
 ## Phase 7: UX & Optimistic Updates
 

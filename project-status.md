@@ -54,12 +54,12 @@
 ## Phase 6: Dashboard — Active Task Board
 | Task | Status |
 |------|--------|
-| 6.1 Fetch & display task list | `[ ]` |
-| 6.2 Task row component | `[ ]` |
-| 6.3 Color-coded badge logic | `[ ]` |
-| 6.4 Completion checkbox | `[ ]` |
-| 6.5 Edit button per row | `[ ]` |
-| 6.6 Delete task action | `[ ]` |
+| 6.1 Fetch & display task list | `[X]` |
+| 6.2 Task row component | `[X]` |
+| 6.3 Color-coded badge logic | `[X]` |
+| 6.4 Completion checkbox | `[X]` |
+| 6.5 Edit button per row | `[X]` |
+| 6.6 Delete task action | `[X]` |
 
 ## Phase 7: UX & Optimistic Updates
 | Task | Status |
@@ -78,4 +78,4 @@
 
 ---
 
-**Overall: 22 / 38 tasks completed**
+**Overall: 31 / 38 tasks completed**
