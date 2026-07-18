@@ -1,7 +1,7 @@
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 
-const BACKEND = process.env.API_URL || "http://localhost:5000";
+const BACKEND = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
 
 async function fetchWithTimeout(url, options, timeout = 5000) {
   const ctrl = new AbortController();
