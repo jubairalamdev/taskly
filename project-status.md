@@ -23,7 +23,13 @@
 | 2.6 Sign-up page with proper callback pattern | `[X]` |
 | 2.7 Update proxy with `getSessionCookie` | `[X]` |
 
-## Phase 3: Marketing Page
+## Phase 2.5: Shared Layout & Design System
+| Task | Status |
+|------|--------|
+| 2.5.1 Create `system-design.md` with theme & design structure | `[X]` |
+| 2.5.2 Build Header component | `[X]` |
+| 2.5.3 Build Footer component | `[X]` |
+| 2.5.4 Wire Header & Footer into root layout | `[X]` |
 | Task | Status |
 |------|--------|
 | 3.1 Hero section | `[ ]` |
@@ -72,4 +78,4 @@
 
 ---
 
-**Overall: 11 / 29 tasks completed**
+**Overall: 15 / 38 tasks completed**

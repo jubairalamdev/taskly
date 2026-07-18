@@ -21,9 +21,14 @@
 - [X] **2.4** Rework client (`src/lib/auth-client.js`) — `createAuthClient` from `better-auth/react`, no `baseURL` needed (same origin)
 - [X] **2.5** Build sign-in page (`/auth/signin`) with Hero UI card + email/password form wired to `authClient.signIn.email()` with callback pattern (`onSuccess`, `onError`)
 - [X] **2.6** Build sign-up page (`/auth/signup`) with Hero UI card + name/email/password form wired to `authClient.signUp.email()` with callback pattern
-- [ ] **2.7** Update proxy (`src/proxy.js`) — use `getSessionCookie` from `better-auth/cookies` for fast cookie check
+- [X] **2.7** Update proxy (`src/proxy.js`) — use `getSessionCookie` from `better-auth/cookies` for fast cookie check
 
-## Phase 3: Marketing Page
+## Phase 2.5: Shared Layout & Design System
+
+- [X] **2.5.1** Create `system-design.md` — document theme (lighter blue + light orange), typography, spacing, component styles
+- [X] **2.5.2** Build Header component — sticky top, logo + nav links, modern minimalist
+- [X] **2.5.3** Build Footer component — centered, muted, minimal copyright line
+- [X] **2.5.4** Wire Header & Footer into root layout — full-height flex shell
 
 - [ ] **3.1** Hero section — headline + subtitle describing distraction-free workflow
 - [ ] **3.2** "The Problem" section — overcomplicated PM tools
