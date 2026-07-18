@@ -4,19 +4,24 @@ import { useState, useEffect, useRef } from "react";
 import { Button } from "@heroui/react";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import { authClient } from "@/lib/auth-client";
 import TaskModal from "@/components/TaskModal";
 import EditTaskModal from "@/components/EditTaskModal";
 import DeleteTaskModal from "@/components/DeleteTaskModal";
+import TaskDetailModal from "@/components/TaskDetailModal";
 import TaskRow from "@/components/TaskRow";
 
 export default function DashboardPage() {
   const router = useRouter();
+  const { data: session } = authClient.useSession();
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [createOpen, setCreateOpen] = useState(false);
   const [editingTask, setEditingTask] = useState(null);
   const [deletingTask, setDeletingTask] = useState(null);
+  const [viewingTaskId, setViewingTaskId] = useState(null);
   const [togglingIds, setTogglingIds] = useState(new Set());
+  const viewingTask = viewingTaskId ? tasks.find((t) => t._id === viewingTaskId) : null;
   const fetchedRef = useRef(false);
 
   useEffect(() => {
@@ -59,25 +64,31 @@ export default function DashboardPage() {
   };
 
   const handleUpdate = async (data, id) => {
+    const original = tasks;
+    setTasks((prev) =>
+      prev.map((t) => (t._id === id ? { ...t, ...data } : t))
+    );
+
     try {
       const res = await fetch(`/api/tasks/${id}`, {
-        method: "PUT",
+        method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
       if (res.status === 401) { router.push("/auth/signin"); return; }
-      if (!res.ok) throw new Error("Failed to update");
+      if (!res.ok) throw new Error(`Update failed: ${res.status} ${await res.text()}`);
 
-      const saved = await res.json();
-      setTasks((prev) => prev.map((t) => (t._id === id ? saved : t)));
       toast.success("Task updated");
-    } catch {
+    } catch (err) {
+      console.error("handleUpdate error:", err);
+      setTasks(original);
       toast.error("Failed to update task");
     }
   };
 
   const handleToggle = async (task) => {
     const original = tasks;
+    const wasCompleted = task.isCompleted;
     setTogglingIds((prev) => new Set(prev).add(task._id));
     setTasks((prev) =>
       prev.map((t) => (t._id === task._id ? { ...t, isCompleted: !t.isCompleted } : t))
@@ -85,15 +96,16 @@ export default function DashboardPage() {
 
     try {
       const res = await fetch(`/api/tasks/${task._id}`, {
-        method: "PUT",
+        method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ isCompleted: !task.isCompleted }),
       });
       if (res.status === 401) { router.push("/auth/signin"); return; }
-      if (!res.ok) throw new Error("Failed to toggle");
+      if (!res.ok) throw new Error(`Toggle failed: ${res.status} ${await res.text()}`);
 
       toast.success(task.isCompleted ? "Task uncompleted" : "Task completed");
-    } catch {
+    } catch (err) {
+      console.error("handleToggle error:", err);
       setTasks(original);
       toast.error("Failed to update task");
     } finally {
@@ -102,6 +114,7 @@ export default function DashboardPage() {
   };
 
   const handleDeleteConfirm = async (task) => {
+    if (viewingTaskId === task._id) setViewingTaskId(null);
     setTasks((prev) => prev.filter((t) => t._id !== task._id));
 
     try {
@@ -118,6 +131,7 @@ export default function DashboardPage() {
   const openCreate = () => setCreateOpen(true);
   const openEdit = (task) => setEditingTask(task);
   const openDelete = (task) => setDeletingTask(task);
+  const openDetail = (task) => setViewingTaskId(task._id);
 
   if (loading) {
     return (
@@ -147,8 +161,14 @@ export default function DashboardPage() {
     );
   }
 
+  const userName = session?.user?.name?.split(" ")[0] || "there";
+
   return (
     <div className="flex-1 flex flex-col px-4 py-6">
+      <div className="max-w-3xl mx-auto w-full mb-6">
+        <h1 className="text-2xl font-bold text-slate-900">Welcome back, {userName}</h1>
+        <p className="text-sm text-slate-500 mt-1">Manage your tasks, track deadlines, and stay on top of your day.</p>
+      </div>
       <div className="max-w-3xl mx-auto w-full space-y-2">
         {tasks.map((task) => (
           <TaskRow
@@ -157,6 +177,7 @@ export default function DashboardPage() {
             onToggle={handleToggle}
             onEdit={openEdit}
             onDelete={openDelete}
+            onDetail={openDetail}
             toggling={togglingIds.has(task._id)}
           />
         ))}
@@ -184,6 +205,15 @@ export default function DashboardPage() {
         onClose={() => setDeletingTask(null)}
         task={deletingTask}
         onConfirm={handleDeleteConfirm}
+      />
+
+      <TaskDetailModal
+        isOpen={!!viewingTask}
+        onClose={() => setViewingTaskId(null)}
+        task={viewingTask}
+        onToggle={handleToggle}
+        onEdit={openEdit}
+        onDelete={openDelete}
       />
     </div>
   );

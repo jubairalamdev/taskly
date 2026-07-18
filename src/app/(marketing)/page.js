@@ -129,12 +129,13 @@ export default function Home() {
         <FloatingBlob className="w-96 h-96 bg-blue-300 -top-20 -left-20" />
         <FloatingBlob className="w-72 h-72 bg-orange-300 bottom-10 right-10" />
         <FloatingBlob className="w-64 h-64 bg-blue-200 bottom-40 left-1/4" />
+        <div className="flex flex-col lg:flex-row justify-center w-300 px-5">
 
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="relative z-10"
+          className="relative z-10 flex-1"
         >
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
@@ -143,7 +144,7 @@ export default function Home() {
             className="inline-flex items-center gap-2 px-4 py-1.5 mb-8 rounded-full bg-blue-50 border border-blue-100 text-sm text-blue-500 font-medium"
           >
             <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
-            Distraction-free task management
+            Distraction Free task management
           </motion.div>
 
           <h1 className="text-5xl sm:text-7xl font-bold tracking-tight leading-[1.1]">
@@ -156,7 +157,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="mt-6 max-w-xl mx-auto text-lg sm:text-xl text-slate-500 leading-relaxed"
+            className="mt-6 w-[80vw] sm:max-w-xl mx-auto text-lg sm:text-xl text-slate-500 leading-relaxed"
           >
             No boards, no labels, no clutter. Just simple rows with automatic
             color cues so you always know what needs your attention.
@@ -176,10 +177,11 @@ export default function Home() {
           initial={{ opacity: 0, y: 60 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
-          className="relative z-10 mt-16 w-full flex justify-center"
+          className="relative z-10 mt-16 w-full flex justify-center flex-1"
         >
           <HeroIllustration />
         </motion.div>
+        </div>
       </section>
 
       {/* ─── Problem ─── */}

@@ -65,9 +65,18 @@
 - [X] **7.2** Wire React Toastify toasts on every mutation success/failure
 - [X] **7.3** Handle edge cases: expired session → redirect to sign-in, network error → rollback + toast
 
-## Phase 8: Polish & Deployment Prep
+## Phase 8: Task Detail View
 
-- [ ] **8.1** Responsive design pass (mobile-first)
-- [ ] **8.2** Loading states (skeleton/spinner during data fetch)
-- [ ] **8.3** Final error boundary and 404 page
-- [ ] **8.4** Build and verify production build
+- [X] **8.1** Build TaskDetailModal (lg size, read-only task info)
+- [X] **8.2** Make task card row clickable to open detail modal
+- [X] **8.3** Wire detail modal into dashboard with `viewingTaskId` state (derived from `tasks` array)
+- [X] **8.4** Add 4 action buttons in detail modal footer: Complete/Incomplete toggle, Edit, Delete, Close
+- [X] **8.5** Toggle button immediately updates UI (optimistic) and persists to DB via PUT /api/tasks/:id
+- [X] **8.6** Edit button opens EditTaskModal, Delete button opens DeleteTaskModal
+
+## Phase 9: Polish & Deployment Prep
+
+- [ ] **9.1** Responsive design pass (mobile-first)
+- [ ] **9.2** Loading states (skeleton/spinner during data fetch)
+- [ ] **9.3** Final error boundary and 404 page
+- [ ] **9.4** Build and verify production build

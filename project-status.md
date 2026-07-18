@@ -68,14 +68,24 @@
 | 7.2 Toast notifications | `[X]` |
 | 7.3 Edge case handling (expired session, network error) | `[X]` |
 
-## Phase 8: Polish & Deployment
+## Phase 8: Task Detail View
 | Task | Status |
 |------|--------|
-| 8.1 Responsive design pass | `[ ]` |
-| 8.2 Loading states | `[ ]` |
-| 8.3 Error boundary + 404 | `[ ]` |
-| 8.4 Production build verification | `[ ]` |
+| 8.1 Build TaskDetailModal with lg size | `[X]` |
+| 8.2 Make task card clickable | `[X]` |
+| 8.3 Wire detail modal with derived `viewingTask` | `[X]` |
+| 8.4 4 action buttons (Complete/Incomplete, Edit, Delete, Close) | `[X]` |
+| 8.5 Toggle button optimistic UI + DB persistence | `[X]` |
+| 8.6 Edit/Delete buttons open respective modals | `[X]` |
+
+## Phase 9: Polish & Deployment
+| Task | Status |
+|------|--------|
+| 9.1 Responsive design pass | `[ ]` |
+| 9.2 Loading states | `[ ]` |
+| 9.3 Error boundary + 404 | `[ ]` |
+| 9.4 Production build verification | `[ ]` |
 
 ---
 
-**Overall: 34 / 38 tasks completed**
+**Overall: 40 / 44 tasks completed**

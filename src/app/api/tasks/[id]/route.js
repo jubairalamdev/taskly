@@ -14,20 +14,25 @@ async function fetchWithTimeout(url, options, timeout = 5000) {
   }
 }
 
-export async function PUT(request, { params }) {
-  const h = await headers();
-  const sessionData = await auth.api.getSession({ headers: h });
-  if (!sessionData) return Response.json({ error: "Unauthorized" }, { status: 401 });
+export async function PATCH(request, { params }) {
+  try {
+    const h = await headers();
+    const sessionData = await auth.api.getSession({ headers: h });
+    if (!sessionData) return Response.json({ error: "Unauthorized" }, { status: 401 });
 
-  const token = sessionData.session.token;
-  const { id } = await params;
-  const body = await request.json();
-  const res = await fetchWithTimeout(`${BACKEND}/api/tasks/${id}`, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-    body: JSON.stringify(body),
-  });
-  return Response.json(await res.json(), { status: res.status });
+    const token = sessionData.session.token;
+    const { id } = await params;
+    const body = await request.json();
+    const res = await fetchWithTimeout(`${BACKEND}/api/tasks/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+      body: JSON.stringify(body),
+    });
+    return Response.json(await res.json(), { status: res.status });
+  } catch (err) {
+    console.error("PATCH proxy error:", err);
+    return Response.json({ error: "Proxy error" }, { status: 500 });
+  }
 }
 
 export async function DELETE(request, { params }) {
