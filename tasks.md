@@ -43,9 +43,9 @@
 
 ## Phase 5: Task Modal (Create & Edit)
 
-- [ ] **5.1** Build reusable Hero UI Modal component with form fields (name, deadline, description)
-- [ ] **5.2** Implement Task Creation flow (POST /api/tasks via fetch with session cookie)
-- [ ] **5.3** Implement Task Editing flow — open modal pre-populated with current task data (PUT /api/tasks/:id)
+- [X] **5.1** Build reusable Hero UI Modal component with form fields (name, deadline, description)
+- [X] **5.2** Implement Task Creation flow (POST /api/tasks via fetch with session cookie)
+- [X] **5.3** Implement Task Editing flow — open modal pre-populated with current task data (PUT /api/tasks/:id)
 
 ## Phase 6: Dashboard — Active Task Board
 

@@ -47,9 +47,9 @@
 ## Phase 5: Task Modal (Create & Edit)
 | Task | Status |
 |------|--------|
-| 5.1 Reusable modal component | `[ ]` |
-| 5.2 Create task flow | `[ ]` |
-| 5.3 Edit task flow | `[ ]` |
+| 5.1 Reusable modal component | `[X]` |
+| 5.2 Create task flow | `[X]` |
+| 5.3 Edit task flow | `[X]` |
 
 ## Phase 6: Dashboard — Active Task Board
 | Task | Status |
