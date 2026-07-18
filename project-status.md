@@ -32,10 +32,10 @@
 | 2.5.4 Wire Header & Footer into root layout | `[X]` |
 | Task | Status |
 |------|--------|
-| 3.1 Hero section | `[ ]` |
-| 3.2 Problem section | `[ ]` |
-| 3.3 Solution section | `[ ]` |
-| 3.4 CTA button with session-aware routing | `[ ]` |
+| 3.1 Hero section | `[X]` |
+| 3.2 Problem section | `[X]` |
+| 3.3 Solution section | `[X]` |
+| 3.4 CTA button with session-aware routing | `[X]` |
 
 ## Phase 4: Dashboard — Empty State
 | Task | Status |
@@ -78,4 +78,4 @@
 
 ---
 
-**Overall: 15 / 38 tasks completed**
+**Overall: 19 / 38 tasks completed**

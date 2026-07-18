@@ -30,10 +30,10 @@
 - [X] **2.5.3** Build Footer component — centered, muted, minimal copyright line
 - [X] **2.5.4** Wire Header & Footer into root layout — full-height flex shell
 
-- [ ] **3.1** Hero section — headline + subtitle describing distraction-free workflow
-- [ ] **3.2** "The Problem" section — overcomplicated PM tools
-- [ ] **3.3** "The Solution" section — simple rows, colors, zero setup
-- [ ] **3.4** "Get Started" CTA button — session-aware routing (session → `/dashboard`, else → `/auth/signin`)
+- [X] **3.1** Hero section — headline + subtitle describing distraction-free workflow
+- [X] **3.2** "The Problem" section — overcomplicated PM tools
+- [X] **3.3** "The Solution" section — simple rows, colors, zero setup
+- [X] **3.4** "Get Started" CTA button — session-aware routing (session → `/dashboard`, else → `/auth/signin`)
 
 ## Phase 4: Dashboard — Empty State
 
