@@ -7,18 +7,19 @@
 ## Phase 1: Project Scaffolding & Tooling
 | Task | Status |
 |------|--------|
-| 1.1 Initialize Next.js + Tailwind | `[ ]` |
-| 1.2 Integrate Hero UI v3 | `[ ]` |
-| 1.3 Set up Toastify + folder structure | `[ ]` |
-| 1.4 Root layout with global providers | `[ ]` |
+| 1.1 Initialize Next.js + Tailwind | `[X]` |
+| 1.2 Integrate Hero UI v3 | `[X]` |
+| 1.3 Set up Toastify + folder structure | `[X]` |
+| 1.4 Root layout with global providers | `[X]` |
 
 ## Phase 2: Authentication (Better Auth)
 | Task | Status |
 |------|--------|
-| 2.1 Better Auth client SDK setup (`auth-client.js`) | `[ ]` |
-| 2.2 Sign-in page UI | `[ ]` |
-| 2.3 Wire form to `auth.signIn()` + toast feedback | `[ ]` |
-| 2.4 Route middleware — guard /dashboard with session check | `[ ]` |
+| 2.1 Better Auth client SDK setup (`auth-client.js`) | `[X]` |
+| 2.2 Sign-in page UI | `[X]` |
+| 2.3 Wire form to `auth.signIn()` + toast feedback | `[X]` |
+| 2.4 Route middleware — guard /dashboard with session check | `[X]` |
+| 2.5 Sign-up / register page (`/auth/signup`) with `auth.signUp()` | `[X]` |
 
 ## Phase 3: Marketing Page
 | Task | Status |
@@ -69,4 +70,4 @@
 
 ---
 
-**Overall: 0 / 27 tasks completed**
+**Overall: 9 / 28 tasks completed**

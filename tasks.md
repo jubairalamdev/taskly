@@ -7,16 +7,17 @@
 ## Phase 1: Project Scaffolding & Tooling
 
 - [X] **1.1** Initialize Next.js project (App Router, JavaScript), install Tailwind CSS, Hero Ui v3 and Ract Toastify
-- [ ] **1.2** Integrate Hero UI v3 with Tailwind
-- [ ] **1.3** Set up React Toastify and project folder structure (layouts, lib, components, app routes)
-- [ ] **1.4** Create root layout with global providers (Hero UI, Toastify)
+- [X] **1.2** Integrate Hero UI v3 with Tailwind
+- [X] **1.3** Set up React Toastify and project folder structure (layouts, lib, components, app routes)
+- [X] **1.4** Create root layout with global providers (Hero UI, Toastify)
 
 ## Phase 2: Authentication (Better Auth)
 
-- [ ] **2.1** Install & configure Better Auth client SDK (`auth-client.js` with `createAuthClient`)
-- [ ] **2.2** Build sign-in page (`/auth/signin`) with centered Hero UI card + email/password form
-- [ ] **2.3** Wire form submission to `auth.signIn()` with toast feedback on success/failure
-- [ ] **2.4** Create route middleware (Next.js Middleware) to guard `/dashboard` — check `useSession()`, redirect to `/auth/signin` if no session
+- [X] **2.1** Install & configure Better Auth client SDK (`auth-client.js` with `createAuthClient`)
+- [X] **2.2** Build sign-in page (`/auth/signin`) with centered Hero UI card + email/password form
+- [X] **2.3** Wire form submission to `auth.signIn()` with toast feedback on success/failure
+- [X] **2.4** Create route middleware (Next.js Middleware) to guard `/dashboard` — check session cookie, redirect to `/auth/signin` if no session
+- [X] **2.5** Build sign-up / register page (`/auth/signup`) with centered Hero UI card + name/email/password form + wire to `auth.signUp()`
 
 ## Phase 3: Marketing Page
 
