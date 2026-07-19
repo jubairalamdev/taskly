@@ -2,6 +2,8 @@
 
 A distraction-free task management tool. No boards, no labels, no clutter — just simple rows with automatic color cues.
 
+### [Live Demo Website](https://taskly-iota-puce.vercel.app/)
+
 ## Features
 
 - **Email/password authentication** powered by Better Auth
@@ -27,7 +29,7 @@ A distraction-free task management tool. No boards, no labels, no clutter — ju
 ### Prerequisites
 
 - Node.js 20+
-- A running instance of the [Taskly backend]([https://github.com/your-org/taskly-server](https://taskly-server-mu.vercel.app/))
+- A running instance of the [Taskly backend](https://taskly-server-mu.vercel.app/)
 
 ### Environment Variables
 
