@@ -27,7 +27,7 @@ A distraction-free task management tool. No boards, no labels, no clutter — ju
 ### Prerequisites
 
 - Node.js 20+
-- A running instance of the [Taskly backend](https://github.com/your-org/taskly-server)
+- A running instance of the [Taskly backend]([https://github.com/your-org/taskly-server](https://taskly-server-mu.vercel.app/))
 
 ### Environment Variables
 
